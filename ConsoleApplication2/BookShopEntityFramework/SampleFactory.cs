@@ -8,21 +8,22 @@ using Microsoft.Extensions.Configuration;
 
 namespace BookShopEntityFramework
 {
-  public class SampleFactory : IDesignTimeDbContextFactory<BookContext>
-  {
-    public BookContext CreateDbContext(string[] args)
+    public class SampleFactory : IDesignTimeDbContextFactory<BookContext>
     {
-      var builder = new ConfigurationBuilder();
-      builder.SetBasePath(Directory.GetCurrentDirectory());
-      builder.AddJsonFile("DBsettings.json");
-      var config = builder.Build();
-      string connectionString = config.GetConnectionString("DefaultConnection");
+        public BookContext CreateDbContext(string[] args)
+        {
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            #warning обычно такой файл называется appsettings.json, это общепринятое название
+            builder.AddJsonFile("DBsettings.json");
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("DefaultConnection");
 
-      var optionsBuilder = new DbContextOptionsBuilder<BookContext>();
-      var options = optionsBuilder
-        .UseNpgsql(connectionString)
-        .Options;
-      return new BookContext(options);
+            var optionsBuilder = new DbContextOptionsBuilder<BookContext>();
+            var options = optionsBuilder
+                .UseNpgsql(connectionString)
+                .Options;
+            return new BookContext(options);
+        }
     }
-  }
 }

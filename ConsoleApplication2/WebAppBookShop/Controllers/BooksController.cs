@@ -7,66 +7,68 @@ using Microsoft.AspNetCore.Mvc;
 using BookShopEntityFramework;
 using BookShopSystem;
 
+#warning убрать лишние using'и
 namespace WebAppBookShop.Controllers
 {
-  [Route("api/[controller]")]
-  [ApiController]
-  public class BooksController : ControllerBase
-  {
-    private readonly SampleFactory _sampleFactory;
-
-    public BooksController(SampleFactory iSampleFactory)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BooksController : ControllerBase
     {
-      _sampleFactory = iSampleFactory;
-    }
+        private readonly SampleFactory _sampleFactory;
 
-    [HttpGet]
-    [Route("")]
-    public async Task<List<Book>> GetBooks()
-    {
-      using (var context = _sampleFactory.CreateDbContext(null))
-      {
-        return await context.GetBooks();
-      }
-    }
+        public BooksController(SampleFactory iSampleFactory)
+        {
+            _sampleFactory = iSampleFactory;
+        }
 
-    [HttpGet("{id}", Name = "Get")]
-    [Route("{id:int}")]
-    public Book GetBook(int iId)
-    {
-      using (var context = _sampleFactory.CreateDbContext(null))
-      {
-        return context.GetBook(iId);
-      }
-    }
+        [HttpGet]
+        [Route("")]
+        public async Task<List<Book>> GetBooks()
+        {
+            using (var context = _sampleFactory.CreateDbContext(null))
+            {
+                return await context.GetBooks();
+            }
+        }
 
-    [HttpPost]
-    public void Post([FromBody] Book iBook)
-    {
-      using (var context = _sampleFactory.CreateDbContext(null))
-      {
-        context.AddBook(iBook);
-      }
-    }
+        [HttpGet("{id}", Name = "Get")]
+        [Route("{id:int}")]
+        public Book GetBook(int iId)
+        {
+            using (var context = _sampleFactory.CreateDbContext(null))
+            {
+                return context.GetBook(iId);
+            }
+        }
 
-    [HttpPut("{id}")]
-    public void Put(int iId, [FromBody]  Book iBook)
-    {
-      iBook.Id = iId;
+        [HttpPost]
+        public void Post([FromBody] Book iBook)
+        {
+            #warning зачем передавать null, если там этот параметр никак не используется? 
+            using (var context = _sampleFactory.CreateDbContext(null))
+            {
+                context.AddBook(iBook);
+            }
+        }
 
-      using (var context = _sampleFactory.CreateDbContext(null))
-      {
-        context.UpdateBook(iBook);
-      }
-    }
+        [HttpPut("{id}")]
+        public void Put(int iId, [FromBody] Book iBook)
+        {
+            iBook.Id = iId;
 
-    [HttpDelete("{id}")]
-    public void Delete(int iId)
-    {
-      using (var context = _sampleFactory.CreateDbContext(null))
-      {
-        context.RemoveBook(iId);
-      }
+            using (var context = _sampleFactory.CreateDbContext(null))
+            {
+                context.UpdateBook(iBook);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(int iId)
+        {
+            using (var context = _sampleFactory.CreateDbContext(null))
+            {
+                context.RemoveBook(iId);
+            }
+        }
     }
-  }
 }

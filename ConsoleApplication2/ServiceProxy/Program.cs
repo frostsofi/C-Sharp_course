@@ -10,6 +10,8 @@ using BookShopSystem;
 namespace Service
 {
 
+  #warning непонятно, зачем этот проект  - console application и зачем прям в main'e ты делаешь запрос 
+  #warning классы разнести по файлам
   public class ServiceProxy
   {
     private readonly HttpClient _httpClient;
