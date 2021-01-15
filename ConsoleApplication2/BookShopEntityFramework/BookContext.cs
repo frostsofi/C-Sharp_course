@@ -6,50 +6,52 @@ using System;
 
 namespace BookShopEntityFramework
 {
-  public class BookContext : DbContext
-  {
-    public BookContext(DbContextOptions<BookContext> options) : base(options)
+    public class BookContext : DbContext
     {
+        public BookContext(DbContextOptions<BookContext> options) : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new BookConfiguration());
+        }
+
+        #warning неиспользуемый метод
+        public void AddBook(Book iBook)
+        {
+            Set<Book>().Add(iBook);
+        }
+
+        public async Task<List<Book>> GetBooks()
+        {
+            return await Set<Book>().ToListAsync();
+        }
+
+        public Book GetBook(int iId)
+        {
+            return Set<Book>().Find(iId);
+        }
+
+        public async void RemoveBook(int iId)
+        {
+            Book book = await Set<Book>().FirstOrDefaultAsync(x => x.Id == iId);
+            Set<Book>().Remove(book);
+        }
+
+#warning неиспользуемый метод О_о
+        public bool UpdateBook(Book iBook)
+        {
+            if (iBook == null)
+            {
+                throw new ArgumentNullException("Book is null");
+            }
+
+            Book book = Set<Book>().FirstOrDefaultAsync(x => x.Id == iBook.Id).GetAwaiter().GetResult();
+
+            Set<Book>().Remove(book);
+            Set<Book>().Add(iBook);
+            return true;
+        }
     }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      modelBuilder.ApplyConfiguration(new BookConfiguration());
-    }
-
-    public void AddBook(Book iBook)
-    {
-      Set<Book>().Add(iBook);
-    }
-
-    public async Task<List<Book>> GetBooks()
-    {
-      return await Set<Book>().ToListAsync();
-    }
-
-    public Book GetBook(int iId)
-    {
-      return Set<Book>().Find(iId);
-    }
-
-    public async void RemoveBook(int iId)
-    {
-      Book book = await Set<Book>().FirstOrDefaultAsync(x => x.Id == iId);
-      Set<Book>().Remove(book);
-    }
-
-    public bool UpdateBook(Book iBook)
-    {
-      if (iBook == null)
-      {
-        throw new ArgumentNullException("Book is null");
-      }
-
-      Book book = Set<Book>().FirstOrDefaultAsync(x => x.Id == iBook.Id).GetAwaiter().GetResult();
-
-      Set<Book>().Remove(book);
-      Set<Book>().Add(iBook);
-      return true;
-    }
-  }
 }
