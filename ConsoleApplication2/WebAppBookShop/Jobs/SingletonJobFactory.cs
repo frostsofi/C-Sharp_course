@@ -5,21 +5,22 @@ using System;
 
 namespace WebAppBookShop.Jobs
 {
-  public class SingletonJobFactory : IJobFactory
-  {
-    private readonly IServiceProvider _serviceProvider;
-    public SingletonJobFactory(IServiceProvider serviceProvider)
+    public class SingletonJobFactory : IJobFactory
     {
-      _serviceProvider = serviceProvider;
-    }
+        private readonly IServiceProvider _serviceProvider;
 
-    public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
-    {
-      return _serviceProvider.GetRequiredService<CheckingEnoughBooks>();
-    }
+        public SingletonJobFactory(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
 
-    public void ReturnJob(IJob job)
-    {
+        public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
+        {
+            return _serviceProvider.GetRequiredService<CheckingEnoughBooks>();
+        }
+
+        public void ReturnJob(IJob job)
+        {
+        }
     }
-  }
 }

@@ -5,22 +5,23 @@ using System.IO;
 
 namespace BookShopEntityFramework
 {
-  public class SampleFactory : IDesignTimeDbContextFactory<BookContext>
-  {
-    public BookContext CreateDbContext(string[] args = null)
+    public class SampleFactory : IDesignTimeDbContextFactory<BookContext>
     {
-      var builder = new ConfigurationBuilder();
-      builder.SetBasePath(Directory.GetCurrentDirectory());
+        #warning вообще обычно в DI регается фабрика, с помощью которой можно получить контекст, и она инжектится, куда надо
+        public BookContext CreateDbContext(string[] args = null)
+        {
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
 
-      builder.AddJsonFile("appsettings.json");
-      var config = builder.Build();
-      string connectionString = config.GetConnectionString("DefaultConnection");
+            builder.AddJsonFile("appsettings.json");
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("DefaultConnection");
 
-      var optionsBuilder = new DbContextOptionsBuilder<BookContext>();
-      var options = optionsBuilder
-          .UseNpgsql(connectionString)
-          .Options;
-      return new BookContext(options);
+            var optionsBuilder = new DbContextOptionsBuilder<BookContext>();
+            var options = optionsBuilder
+                .UseNpgsql(connectionString)
+                .Options;
+            return new BookContext(options);
+        }
     }
-  }
 }
