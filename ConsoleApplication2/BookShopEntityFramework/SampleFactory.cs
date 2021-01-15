@@ -1,29 +1,26 @@
-﻿using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.Json;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System.IO;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace BookShopEntityFramework
 {
-    public class SampleFactory : IDesignTimeDbContextFactory<BookContext>
+  public class SampleFactory : IDesignTimeDbContextFactory<BookContext>
+  {
+    public BookContext CreateDbContext(string[] args = null)
     {
-        public BookContext CreateDbContext(string[] args)
-        {
-            var builder = new ConfigurationBuilder();
-            builder.SetBasePath(Directory.GetCurrentDirectory());
-            #warning обычно такой файл называется appsettings.json, это общепринятое название
-            builder.AddJsonFile("DBsettings.json");
-            var config = builder.Build();
-            string connectionString = config.GetConnectionString("DefaultConnection");
+      var builder = new ConfigurationBuilder();
+      builder.SetBasePath(Directory.GetCurrentDirectory());
 
-            var optionsBuilder = new DbContextOptionsBuilder<BookContext>();
-            var options = optionsBuilder
-                .UseNpgsql(connectionString)
-                .Options;
-            return new BookContext(options);
-        }
+      builder.AddJsonFile("appsettings.json");
+      var config = builder.Build();
+      string connectionString = config.GetConnectionString("DefaultConnection");
+
+      var optionsBuilder = new DbContextOptionsBuilder<BookContext>();
+      var options = optionsBuilder
+          .UseNpgsql(connectionString)
+          .Options;
+      return new BookContext(options);
     }
+  }
 }
