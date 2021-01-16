@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MassTransit;
 using BookShopContract;
-using Service;
+using ServiceProxy;
 using System.Collections.Generic;
 using System.Net.Http;
 
@@ -21,7 +21,7 @@ namespace WebBooksOrder.MassTransit
           
             var message = context.Message;
             int numberBooks = message._numberBooks;
-            ServiceProxy proxy = new ServiceProxy(new HttpClient());
+      ServiceProxy.ServiceProxy proxy = new ServiceProxy.ServiceProxy(new HttpClient());
             #warning лучше использовать await
             var task = proxy.GetData<List<BookShopContract.Book>>("https://getbooksrestapi.azurewebsites.net/api/books/" + numberBooks);
 
