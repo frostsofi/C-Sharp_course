@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
+#warning неверный namespace, проверь везде, пожалуйста
 namespace Service
 {
   public class ServiceProxy
@@ -31,6 +32,7 @@ namespace Service
       }
       finally
       {
+        #warning почему на finally "request failed"?)
         Console.WriteLine("Http request failed");
       }
     }
