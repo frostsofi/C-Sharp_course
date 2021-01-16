@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using BookShopCore;
 
 #warning namespace не соответствует действительности
-namespace BookShopEntityFramework.BookConfiguration
+namespace BookShopEntityFramework.Configurations
 {
     class BookConfiguration : IEntityTypeConfiguration<Book>
     {

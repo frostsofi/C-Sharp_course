@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BookShopCore;
+using BookShopEntityFramework.Configurations;
 
-namespace BookShopEntityFrameworkBookConfiguration
+namespace BookShopEntityFramework
 {
     public class BookContext : DbContext
     {

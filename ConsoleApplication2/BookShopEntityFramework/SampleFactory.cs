@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace BookShopEntityFrameworkBookConfiguration
+namespace BookShopEntityFramework
 {
     public class SampleFactory : IDesignTimeDbContextFactory<BookContext>
     {

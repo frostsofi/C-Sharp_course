@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BookShopCore;
-using BookShopEntityFrameworkBookConfiguration;
+using BookShopEntityFramework;
 
 namespace WebAppBookShop.Services
 {
