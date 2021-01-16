@@ -89,12 +89,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ConsoleApplication2\BookShopCore.csproj">
-      <Project>{670b6218-cd1c-4e85-8cb6-a0e4f279c2ce}</Project>
-      <Name>BookShopCore</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

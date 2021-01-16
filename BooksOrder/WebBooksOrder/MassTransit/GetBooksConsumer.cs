@@ -18,6 +18,7 @@ namespace WebBooksOrder.MassTransit
 
         public Task Consume(ConsumeContext<GetBooks> context)
         {
+          
             var message = context.Message;
             int numberBooks = message._numberBooks;
             ServiceProxy proxy = new ServiceProxy(new HttpClient());
