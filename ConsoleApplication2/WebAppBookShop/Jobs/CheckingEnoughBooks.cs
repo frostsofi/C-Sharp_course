@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Quartz;
 using WebAppBookShop.MassTrasit;
 using Microsoft.Extensions.DependencyInjection;
+using WebAppBookShop.Services;
 
 namespace WebAppBookShop.Jobs
 {
@@ -19,10 +20,15 @@ namespace WebAppBookShop.Jobs
     {
       using (var scope = _serviceProvider.CreateScope())
       {
-        #warning всегда-всегда запрашиваются книги? должны же запрашиваться при каком-то условии 
-        #warning (что-то в духе если осталось меньше 10% от общей вместимости магазина)
-        var producer = scope.ServiceProvider.GetService<GetBooksProducer>();
-        await producer.SentNumberOfBooks();
+#warning всегда-всегда запрашиваются книги? должны же запрашиваться при каком-то условии 
+#warning (что-то в духе если осталось меньше 10% от общей вместимости магазина)
+        var bookShopService = scope.ServiceProvider.GetService<BookShopService>();
+
+        if (bookShopService.IsNeededAcceptance())
+        {
+          var producer = scope.ServiceProvider.GetService<GetBooksProducer>();
+          await producer.SentNumberOfBooks();
+        }
       }
 
       Console.WriteLine("Job success!");

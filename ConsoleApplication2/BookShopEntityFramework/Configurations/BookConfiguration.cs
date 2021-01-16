@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 #warning ненужный using 
-using System.Collections.Generic;
 using BookShopCore;
 
 #warning namespace не соответствует действительности
-namespace BookShopEntityFramework
+namespace BookShopEntityFramework.BookConfiguration
 {
     class BookConfiguration : IEntityTypeConfiguration<Book>
     {

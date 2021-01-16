@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BookShopCore;
-using System;
 
-namespace BookShopEntityFramework
+namespace BookShopEntityFrameworkBookConfiguration
 {
     public class BookContext : DbContext
     {
@@ -15,12 +14,6 @@ namespace BookShopEntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BookConfiguration());
-        }
-
-        #warning неиспользуемый метод
-        public void AddBook(Book iBook)
-        {
-            Set<Book>().Add(iBook);
         }
 
         public async Task<List<Book>> GetBooks()
@@ -37,21 +30,6 @@ namespace BookShopEntityFramework
         {
             Book book = await Set<Book>().FirstOrDefaultAsync(x => x.Id == iId);
             Set<Book>().Remove(book);
-        }
-
-#warning неиспользуемый метод О_о
-        public bool UpdateBook(Book iBook)
-        {
-            if (iBook == null)
-            {
-                throw new ArgumentNullException("Book is null");
-            }
-
-            Book book = Set<Book>().FirstOrDefaultAsync(x => x.Id == iBook.Id).GetAwaiter().GetResult();
-
-            Set<Book>().Remove(book);
-            Set<Book>().Add(iBook);
-            return true;
         }
     }
 }

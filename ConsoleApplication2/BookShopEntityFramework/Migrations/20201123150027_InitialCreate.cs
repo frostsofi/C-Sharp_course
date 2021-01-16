@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace BookShopEntityFramework.Migrations
+namespace BookShopEntityFrameworkBookConfiguration.Migrations
 {
     public partial class InitialCreate : Migration
     {

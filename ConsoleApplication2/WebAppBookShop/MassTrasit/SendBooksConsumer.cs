@@ -9,25 +9,31 @@ namespace WebAppBookShop.MassTrasit
 {
     public class SendBooksConsumer : IConsumer<SendBooks>
     {
-        #warning посмотри внимательно на InjectableJobFactory в том примере, который я вам скидывал, и на его использование. Думаю, ты всё поймёшь) 
-        public Task Consume(ConsumeContext<SendBooks> iContext)
+    /*private readonly IServiceProvider _service;
+    public SendBooksConsumer(IServiceProvider iService)
+    {
+      _service = iService;
+    } */
+
+#warning посмотри внимательно на InjectableJobFactory в том примере, который я вам скидывал, и на его использование. Думаю, ты всё поймёшь) 
+    public Task Consume(ConsumeContext<SendBooks> iContext)
+      {
+        var message = iContext.Message;
+        var books = message._books;
+        List<Book> booksBD = new List<Book>();
+
+        foreach (var book in books)
         {
-            var message = iContext.Message;
-            var books = message._books;
-            List<Book> booksBD = new List<Book>();
-
-            foreach (var book in books)
-            {
-                booksBD.Add(new Book(book.Id, book.Name, book.Genre, book.ReceiptDate, book.Cost));
-            }
-
-            /* Can't inject a dependency and now received books just print in console */
-            foreach (var book in booksBD)
-            {
-                Console.WriteLine("Book{0}: Name:{1} Cost:{2}", book.Id, book.Name, book.Cost);
-            }
-
-            return Task.CompletedTask;
+          booksBD.Add(new Book(book.Id, book.Name, book.Genre, book.ReceiptDate, book.Cost));
         }
+
+        /* Can't inject a dependency and now received books just print in console */
+        foreach (var book in booksBD)
+        {
+          Console.WriteLine("Book{0}: Name:{1} Cost:{2}", book.Id, book.Name, book.Cost);
+        }
+
+        return Task.CompletedTask;
+      }
     }
 }

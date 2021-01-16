@@ -5,7 +5,7 @@ using System;
 
 namespace WebAppBookShop.Jobs
 {
-    public class SingletonJobFactory : IJobFactory
+    public sealed class SingletonJobFactory : IJobFactory
     {
         private readonly IServiceProvider _serviceProvider;
 

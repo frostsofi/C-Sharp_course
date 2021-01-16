@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BookShopCore;
-using BookShopEntityFramework;
+using BookShopEntityFrameworkBookConfiguration;
 
 namespace WebAppBookShop.Services
 {
@@ -111,10 +111,12 @@ namespace WebAppBookShop.Services
             return false;
         }
 
-        public void IsNeededAcceptance()
+        public bool IsNeededAcceptance()
         {
-            if (!(IsTooFewBooksInShop() || IsTooManyOldBooks()))
-                throw new ApplicationException("New arrival of books is not needed");
+      if (!(IsTooFewBooksInShop() || IsTooManyOldBooks()))
+        throw new ApplicationException("New arrival of books is not needed");
+      else
+        return true;
         }
 
         private double TotalCost(List<Book> iNewBooks)
