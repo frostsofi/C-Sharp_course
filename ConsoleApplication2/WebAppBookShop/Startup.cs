@@ -32,6 +32,7 @@ namespace WebAppBookShop
             });
 
             services.AddSingleton<BookShopService>();
+            services.AddSingleton<SendBooksConsumer>();
             services.AddSingleton<GetBooksProducer>();
             services.AddSingleton<IJobFactory, SingletonJobFactory>();
             services.AddSingleton<CheckingEnoughBooks>();
