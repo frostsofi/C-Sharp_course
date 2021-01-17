@@ -22,22 +22,23 @@ namespace WebAppBookShop
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection iServices)
+        public void ConfigureServices(IServiceCollection services)
         {
-            iServices.Configure<CookiePolicyOptions>(options =>
+            services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            iServices.AddSingleton<GetBooksProducer>();
-            iServices.AddSingleton<IJobFactory, SingletonJobFactory>();
-            iServices.AddSingleton<CheckingEnoughBooks>();
-            iServices.AddHostedService<QuartzHostedService>();
-            iServices.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            iServices.AddSingleton(isp => new BookShopService());
-            MassTransitConfiguration.ConfigureServices(iServices, Configuration);
+            services.AddSingleton<BookShopService>();
+            services.AddSingleton<GetBooksProducer>();
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<CheckingEnoughBooks>();
+            services.AddHostedService<QuartzHostedService>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSingleton(isp => new BookShopService());
+            MassTransitConfiguration.ConfigureServices(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

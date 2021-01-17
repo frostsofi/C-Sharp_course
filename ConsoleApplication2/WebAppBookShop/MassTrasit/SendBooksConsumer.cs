@@ -3,18 +3,19 @@ using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAppBookShop.Services;
 using Book = BookShopCore.Book;
 
 namespace WebAppBookShop.MassTrasit
 {
     public class SendBooksConsumer : IConsumer<SendBooks>
     {
-    /*private readonly IServiceProvider _service;
-    public SendBooksConsumer(IServiceProvider iService)
-    {
-      _service = iService;
-    } */
+      private readonly BookShopService _bookShopService;
 
+      public SendBooksConsumer(BookShopService bookShopService)
+      {
+        _bookShopService = bookShopService;
+      }
 #warning посмотри внимательно на InjectableJobFactory в том примере, который я вам скидывал, и на его использование. Думаю, ты всё поймёшь) 
     public Task Consume(ConsumeContext<SendBooks> iContext)
       {
